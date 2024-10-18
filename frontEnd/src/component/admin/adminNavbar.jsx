@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../store/auth-slice';
 import { Link } from 'react-router-dom';
 
-const AdminNavbar = ({handleSearchSubmit, handleSearchChange }) => {
+const AdminNavbar = ({handleSearchSubmit, handleSearchChange, handleHomeClick }) => {
     
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -21,15 +21,12 @@ const AdminNavbar = ({handleSearchSubmit, handleSearchChange }) => {
             width="150" 
             height="80" 
         />
-          {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button> */}
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-              <Link className="nav-link active" to={user.role === "admin" ? "/admin/listing" : "/user/listing"}>
-                Home
-              </Link>
+                  <Link className="nav-link active" onClick={handleHomeClick} to={user.role === "admin" ? "/admin/listing" : "/user/listing"}>
+                    Home
+                  </Link>
               </li>
               {
                 user.role==="admin" ?
