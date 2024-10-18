@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import config from "../../component/common/config";
+
+const backEndURL = config.backEndURL;
 
 const initialState = {
   isLoading: false,
@@ -10,7 +13,7 @@ export const addNewJob = createAsyncThunk(
     "/admin/form",
     async (formData) => {
       const result = await axios.post(
-        "http://localhost:8000/api/admin/add",
+        `${backEndURL}/api/admin/add`,
         formData,
         {
           headers: {
@@ -27,7 +30,7 @@ export const addNewJob = createAsyncThunk(
     "/admin/listing",
     async () => {
       const result = await axios.get(
-        "http://localhost:8000/api/list/get",
+         `${backEndURL}/api/list/get`,
       );
       return result?.data;
     }
