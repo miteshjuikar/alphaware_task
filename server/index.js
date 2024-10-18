@@ -16,13 +16,14 @@ const userPassword = process.env.userPassword;
 
 //MongoDB Connection
 connectToMongoDB(`mongodb+srv://${userId}:${userPassword}@mycluster.krravcy.mongodb.net/companyPortal`)
-                    .then(console.log("MongoDB connected successfully"))
-                    .catch((err)=>console.log(`Error: ${err}`)
-                );
-   
+.then(console.log("MongoDB connected successfully"))
+.catch((err)=>console.log(`Error: ${err}`)
+);
+
+const frontEndURL = process.env.frontEndURL;
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: frontEndURL,
     methods: [ 'GET', 'POST', 'DELETE', 'PUT'],
     allowedHeaders: [
         'Content-Type',
