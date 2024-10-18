@@ -1,13 +1,26 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const JobCard = ({ job }) => {
+
+    const { user } = useSelector((state) => state.auth);
+
+    const handleApply = () => {
+        // call api
+    }
+
     return (
         <div style={styles.card}>
             <h2 style={{ height: '100px' }}>{job.position}</h2>
             <p><strong>Company:</strong> {job.company}</p>
             <p><strong>Location:</strong> {job.location}</p>
-            <p>{job.contract}</p>
-            <button style={styles.button}>Apply Now</button>
+            <p><strong>Contract:</strong> {job.contract}</p>
+            {
+                user.role !== "admin" ? 
+                <button style={styles.button} onClick={handleApply}>Apply Now</button> :
+                null
+            }
+            
         </div>
     );
 };
