@@ -17,17 +17,17 @@ function CheckAuth({isAuthenticated, user, children}) {
         (location.pathname.includes('/login') || 
         location.pathname.includes('/register'))
     ){
-        if(user?.role === 'admin'){
+        if(user?.role === 'admin' && user?.email.split('@')[1] === "alphaware.com"){
             return <Navigate to='/admin/listing' />
         }
-        else{
+        else if(user?.role === 'user' && user?.email.split('@')[1] === "alphawarenext.com"){
             return <Navigate to='/user/listing' /> 
         }        
     }
-    if(isAuthenticated && user.role !== 'admin' && location.pathname.includes('admin')){
+    if(isAuthenticated && user.role !== 'admin' && user?.email.split('@')[1] !== "alphaware.com" && location.pathname.includes('admin')){
         return <Navigate to='unauth-page' />
     }
-    if(isAuthenticated && user.role === 'admin' && location.pathname.includes('shop')){
+    if(isAuthenticated && user.role === 'admin' && user?.email.split('@')[1] === "alphaware.com" && location.pathname.includes('user')){
         return <Navigate to='/admin/listing'/>
     }
 

@@ -5,12 +5,26 @@ import CheckAuth from './component/common/check-auth'
 import AuthLogin from './pages/login'
 import AuthRegister from './pages/register'
 import { useDispatch, useSelector } from "react-redux"
+import AdminForm from './component/admin/adminForm'
+import Loader from './component/common/loader'
+import { checkAuth } from './store/auth-slice'
+import { useEffect } from 'react'
+import AdminLayout from './component/admin/layout'
+import List from './pages/list'
 
 
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
     (state) => state.auth
   );
+
+  const dispatch = useDispatch();
+
+  useEffect(()=> {
+    dispatch(checkAuth())
+  }, [dispatch]);
+
+  if (isLoading) return <Loader />;
 
   return (
     <>
@@ -45,18 +59,20 @@ function App() {
              </CheckAuth>
            }
          >
-           <Route path="form" element={<AdminDashboard />} />
-           <Route path="list" element={<AdminProducts />} />
+           <Route path="listing" element={<List />} />
+           <Route path="form" element={<AdminForm />} />
          </Route>
 
-       {/*    <Route path="/user" element={
-               <CheckAuth isAuthenticated={isAuthenticated} user={user}>
-                 <ShoppingLayout/>
-               </CheckAuth>
-           }>
-           <Route path="listing" element={<ShoppingHome/>} />
+         <Route
+           path="/user"
+           element={
+             <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+               <AdminLayout />
+             </CheckAuth>
+           }
+         >
+           <Route path="listing" element={<List />} />
          </Route>
-         <Route path="unauth-page" element={<UnauthPage />} /> */}
 
        </Routes>
 

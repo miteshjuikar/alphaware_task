@@ -23,12 +23,10 @@ const register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    dispatch(loginUser(formData)).then((data) => {
-      console.log(data?.payload);
-      
+    dispatch(registerUser(formData)).then((data) => {      
       if(data?.payload.success){
           console.log(data?.payload?.message);
+          navigate("/auth/login");
       }
       else{
         console.log(data?.payload?.message);
