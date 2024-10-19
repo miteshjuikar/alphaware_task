@@ -1,8 +1,13 @@
 import React from 'react'
+import AdminNavbar from '../component/admin/adminNavbar'
 
 function AppliedJobList() {
+
+    
+
   return (
-    <div>AppliedJobList</div>
+    <AdminNavbar />
+
   )
 }
 
