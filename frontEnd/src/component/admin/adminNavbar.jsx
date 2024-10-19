@@ -51,7 +51,10 @@ const AdminNavbar = ({handleSearchSubmit, handleSearchChange, handleHomeClick })
                     <li className="nav-item">
                       <Link className="nav-link" to="/admin/form">New Job</Link>
                     </li>
-                    : null
+                    : 
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/user/appliedJob">Applied Jobs</Link>
+                    </li>
               }
                
             </ul>

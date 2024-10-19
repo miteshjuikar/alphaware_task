@@ -11,6 +11,7 @@ import { checkAuth } from './store/auth-slice'
 import { useEffect } from 'react'
 import AdminLayout from './component/admin/layout'
 import List from './pages/list'
+import AppliedJobList from './pages/appliedJob'
 
 
 function App() {
@@ -72,6 +73,7 @@ function App() {
            }
          >
            <Route path="listing" element={<List />} />
+           <Route path="appliedJob" element={<AppliedJobList />} />
          </Route>
 
        </Routes>
