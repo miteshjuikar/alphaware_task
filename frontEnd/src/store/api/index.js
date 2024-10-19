@@ -38,7 +38,7 @@ export const addNewJob = createAsyncThunk(
   
 
   const jobSlice = createSlice({
-    name: 'adminProducts',
+    name: 'jobs',
     initialState,
     reducers: {},
     extraReducers: (builder) => {      

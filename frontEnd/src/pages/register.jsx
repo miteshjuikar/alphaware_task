@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../index.css';
 import { registerUser } from '../store/auth-slice';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const register = () => {
   const [formData, setFormData] = useState({
@@ -25,7 +26,10 @@ const register = () => {
     e.preventDefault();
     dispatch(registerUser(formData)).then((data) => {      
       if(data?.payload.success){
-          console.log(data?.payload?.message);
+          toast.success(data?.payload?.message, {
+            autoClose: 5000,
+          })
+          // console.log(data?.payload?.message);
           navigate("/auth/login");
       }
       else{

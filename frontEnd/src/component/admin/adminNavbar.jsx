@@ -2,6 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../store/auth-slice';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminNavbar = ({handleSearchSubmit, handleSearchChange, handleHomeClick }) => {
     
@@ -9,7 +11,12 @@ const AdminNavbar = ({handleSearchSubmit, handleSearchChange, handleHomeClick })
   const dispatch = useDispatch();
 
   function handleLogout() {
-    dispatch(logoutUser());
+    dispatch(logoutUser()).then(
+      toast.success('This is a success message!', {
+        autoClose: 5000,
+      })
+    )
+
   }
 
     return (

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addNewJob } from '../../store/api';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const JobForm = () => {
   const [formData, setFormData] = useState({
@@ -23,8 +24,13 @@ const JobForm = () => {
     e.preventDefault();
     console.log(formData);
     dispatch(addNewJob(formData))
-          .then((data) => { console.log(data?.payload?.message);
-          navigate("/admin/listing");
+          .then((data) => { 
+            navigate("/admin/listing");
+            
+            toast.success(data?.payload?.message, {
+              autoClose: 5000,
+            })
+            console.log(data?.payload?.message);
         })
   };
 

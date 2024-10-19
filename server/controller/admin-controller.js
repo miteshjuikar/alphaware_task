@@ -15,7 +15,7 @@ const addJob = async(req,res) => {
         await createNewJob.save();
         res.status(200).json({
             success: true,
-            data: "New Job Created",
+            message: "New Job Created",
         });
 
     } catch (error) {
