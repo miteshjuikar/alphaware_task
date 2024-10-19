@@ -26,9 +26,17 @@ const register = () => {
     e.preventDefault();
     dispatch(registerUser(formData)).then((data) => {      
       if(data?.payload.success){
-          toast.success(data?.payload?.message, {
-            autoClose: 5000,
-          })
+         
+            if(data?.payload?.success){
+                toast.success(data?.payload?.message, {
+                    autoClose: 5000,
+                  })
+            }
+            else{
+                toast.error(data?.payload?.message, {
+                    autoClose: 5000,
+                  })
+            }
           // console.log(data?.payload?.message);
           navigate("/auth/login");
       }

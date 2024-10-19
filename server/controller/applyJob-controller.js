@@ -8,19 +8,22 @@ const applyForJob = async (req, res) => {
 
     try {
         if (!jobId || !createdBy) {
-            return res.status(400).json({ message: "Job ID and creator ID are required." });
+            return res.json({ 
+                success: true,
+                message: "Job ID and creator ID are required." 
+            });
         }
 
         // Check if the job exists
         const job = await Job.findById(jobId);
         if (!job) {
-            return res.status(404).json({ message: "Job not found." });
+            return res.json({success: true, message: "Job not found." });
         }
         
         // Check if the user exists
         const userExists = await User.findById(createdBy.id);
         if (!userExists) {
-            return res.status(404).json({ message: "User not found." });
+            return res.json({ success: true, message: "User not found." });
         }
 
         // Check if an application already exists for the user
@@ -29,7 +32,10 @@ const applyForJob = async (req, res) => {
         if (application) {
             // Check jobId in  array
             if (application.jobs.includes(jobId)) {
-                return res.status(400).json({ message: "You have already applied for this job." });
+                return res.json({ 
+                    success: false,
+                    message: "You have already applied for this job." 
+                });
             } else {
                 // Push Job object in array
                 application.jobs.push(jobId);
@@ -45,8 +51,8 @@ const applyForJob = async (req, res) => {
         }
 
         res.status(201).json({
+            success: true,
             message: "Job application submitted successfully.",
-            application,
         });
     } catch (error) {
         console.error(error);

@@ -11,11 +11,22 @@ const AdminNavbar = ({handleSearchSubmit, handleSearchChange, handleHomeClick })
   const dispatch = useDispatch();
 
   function handleLogout() {
-    dispatch(logoutUser()).then(
-      toast.success('This is a success message!', {
-        autoClose: 5000,
-      })
-    )
+    dispatch(logoutUser()).then((data)=> {
+
+      
+ console.log(data.payload.success);
+ 
+            if(data?.payload?.success){
+                toast.success(data?.payload?.message, {
+                    autoClose: 5000,
+                  })
+            }
+            else{
+                toast.error(data?.payload?.message, {
+                    autoClose: 5000,
+                  })
+            }
+  })
 
   }
 

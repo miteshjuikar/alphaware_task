@@ -1,8 +1,8 @@
 const { Schema, model } = require("mongoose");
 
 const appliedJobSchema = new Schema({
-    jobs: { // Renamed to jobs to indicate it's an array
-        type: [Schema.Types.ObjectId], // Array of ObjectId
+    jobs: {
+        type: [Schema.Types.ObjectId], 
         ref: "job",
         required: true,
     },

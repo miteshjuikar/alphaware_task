@@ -1,12 +1,27 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { applyForJob } from '../../store/api';
+import { toast } from 'react-toastify';
 
 const JobCard = ({ job }) => {
 
     const { user } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
 
-    const handleApply = () => {
-        // call api
+    const handleApply = (jobId) => { 
+        dispatch(applyForJob(jobId)).then((data)=>{
+        
+            if(data?.payload?.success){
+                toast.success(data?.payload?.message, {
+                    autoClose: 5000,
+                  })
+            }
+            else{
+                toast.error(data?.payload?.message, {
+                    autoClose: 5000,
+                  })
+            }
+        })
     }
 
     return (
@@ -17,7 +32,7 @@ const JobCard = ({ job }) => {
             <p><strong>Contract:</strong> {job.contract}</p>
             {
                 user.role !== "admin" ? 
-                <button style={styles.button} onClick={handleApply}>Apply Now</button> :
+                <button style={styles.button} onClick={() => handleApply(job._id)}>Apply Now</button> :
                 null
             }
             
