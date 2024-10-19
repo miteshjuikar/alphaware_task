@@ -25,12 +25,11 @@ const JobForm = () => {
     console.log(formData);
     dispatch(addNewJob(formData))
           .then((data) => { 
-            navigate("/admin/listing");
-            
             toast.success(data?.payload?.message, {
               autoClose: 5000,
             })
             console.log(data?.payload?.message);
+            navigate("/admin/listing");
         })
   };
 
