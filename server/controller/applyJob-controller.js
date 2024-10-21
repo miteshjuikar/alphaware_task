@@ -60,8 +60,22 @@ const applyForJob = async (req, res) => {
     }
 };
 
-const getAppliedJob = () => {
-    
+const getAppliedJob = async (req, res) => {
+    try {
+        const userId = req.createdBy.id; 
+
+        const appliedJobs = await ApplyJob.findOne({ createdBy: userId }).populate('jobs');
+
+        if (!appliedJobs) {
+            return res.status(201).json({ success: false, message: "No applied jobs found for this user."});
+        }
+
+        res.status(201).json({ success: true, message: "Applied Job List", data: appliedJobs});
+
+    } catch (error) {
+        console.error("Error fetching applied jobs:", error);
+        res.status(500).json({ success:false, message: "Server error"});
+    }
 }
 
 module.exports = { applyForJob, getAppliedJob };

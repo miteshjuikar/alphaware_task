@@ -1,21 +1,11 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
 const { applyForJob, getAppliedJob } = require('../controller/applyJob-controller');
+const { setUserMiddleware } = require('../controller/authController');
 
 const router = express.Router();
 
-router.get('/getAppliedJob',getAppliedJob);
-router.post('/:jobId', (req, res,next)=>{
-
-    console.log(req.cookies);
-    
-        const token = req.cookies.token; 
-        const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-        req.createdBy = decodedToken;
-
-        next();
-    },
-applyForJob);
+router.get('/getAppliedJob', setUserMiddleware, getAppliedJob);
+router.post('/:jobId', setUserMiddleware, applyForJob);
 
 
 module.exports = router;

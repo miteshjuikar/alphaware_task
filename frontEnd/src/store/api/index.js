@@ -7,7 +7,7 @@ const backEndURL = config.backEndURL;
 const initialState = {
   isLoading: false,
   jobs: [],
-  applyJobStatus: null,
+  appliedJobs: [],
 };
 
 export const addNewJob = createAsyncThunk(
@@ -48,6 +48,19 @@ export const applyForJob = createAsyncThunk(
         },
         withCredentials: true
       }
+    );     
+    return result?.data;
+  }
+);
+
+export const fetchAppliedJobs = createAsyncThunk(
+  "jobs/fetchAppliedJobs",
+  async () => {
+    const result = await axios.get(
+      `${backEndURL}/api/apply/getAppliedJob`,
+      {
+        withCredentials: true 
+      }
     );
     return result?.data;
   }
@@ -72,15 +85,23 @@ const jobSlice = createSlice({
       })
       .addCase(applyForJob.pending, (state) => {
         state.isLoading = true;
-        state.applyJobStatus = 'loading';
       })
       .addCase(applyForJob.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.applyJobStatus = 'succeeded';
       })
       .addCase(applyForJob.rejected, (state) => {
         state.isLoading = false;
-        state.applyJobStatus = 'failed';
+      })
+      .addCase(fetchAppliedJobs.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchAppliedJobs.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.appliedJobs = action.payload.data;
+      })
+      .addCase(fetchAppliedJobs.rejected, (state) => {
+        state.isLoading = false;
+        state.appliedJobs = [];
       });
   },
 });

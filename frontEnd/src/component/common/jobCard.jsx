@@ -4,15 +4,13 @@ import { applyForJob } from '../../store/api';
 import { toast } from 'react-toastify';
 
 const JobCard = ({ job }) => {
-
+    
     const { user } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
     const handleApply = (jobId) => { 
         dispatch(applyForJob(jobId)).then((data)=>{
 
-        console.log(data, "applied Job Data");
-        
             if(data?.payload?.success){
                 toast.success(data?.payload?.message, {
                     autoClose: 5000,

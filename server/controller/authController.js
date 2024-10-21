@@ -124,4 +124,12 @@ const authMiddleware = (req,res,next) => {
     }
 }
 
-module.exports = { registerUser, loginUser, logoutUser, authMiddleware};
+const setUserMiddleware = (req, res,next)=>{
+        const token = req.cookies.token; 
+        const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+        req.createdBy = decodedToken;
+
+        next();
+    }
+
+module.exports = { registerUser, loginUser, logoutUser, authMiddleware, setUserMiddleware};

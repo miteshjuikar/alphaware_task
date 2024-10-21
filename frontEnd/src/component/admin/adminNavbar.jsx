@@ -10,12 +10,8 @@ const AdminNavbar = ({handleSearchSubmit, handleSearchChange, handleHomeClick })
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  function handleLogout() {
-    dispatch(logoutUser()).then((data)=> {
-
-      
- console.log(data.payload.success);
- 
+  function handleLogout() {    
+    dispatch(logoutUser()).then((data)=> { 
             if(data?.payload?.success){
                 toast.success(data?.payload?.message, {
                     autoClose: 5000,
@@ -60,22 +56,18 @@ const AdminNavbar = ({handleSearchSubmit, handleSearchChange, handleHomeClick })
             </ul>
 
             { handleSearchSubmit && handleSearchChange?
-                  <>
                     <form className="d-flex" role="search" onSubmit={handleSearchSubmit}>
                       <input className="form-control me-2" onChange={handleSearchChange} type="search" placeholder="Search" aria-label="Search" />
                       <button className="btn btn-outline-success" type="submit">Search</button>
                     </form>
-                    <button className="btn btn-outline-success" 
+                    :
+                    null
+            }
+           <button className="btn btn-outline-success" 
                             style={{ marginLeft: '10px' }} 
                             type="button"
                             onClick={handleLogout}
                     >Logout</button>
-                  </>
-                    :
-                  <button className="btn btn-outline-success" type="button">Logout</button>
-
-            }
-           
           </div>
         </div>
       </nav>
