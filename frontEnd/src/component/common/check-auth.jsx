@@ -18,7 +18,7 @@ function CheckAuth({isAuthenticated, user, children}) {
         location.pathname.includes('/register'))
     ){
         if(user?.role === 'admin' && user?.email.split('@')[1] === "alphaware.com"){
-            return <Navigate to='/admin/listing' />
+            return <Navigate to='/admin/form' />
         }
         else if(user?.role === 'user' && user?.email.split('@')[1] === "alphawarenext.com"){
             return <Navigate to='/user/listing' /> 
@@ -28,7 +28,7 @@ function CheckAuth({isAuthenticated, user, children}) {
         return <Navigate to='unauth-page' />
     }
     if(isAuthenticated && user.role === 'admin' && user?.email.split('@')[1] === "alphaware.com" && location.pathname.includes('user')){
-        return <Navigate to='/admin/listing'/>
+        return <Navigate to='/admin/form'/>
     }
 
     
