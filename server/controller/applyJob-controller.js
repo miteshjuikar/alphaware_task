@@ -60,4 +60,8 @@ const applyForJob = async (req, res) => {
     }
 };
 
-module.exports = { applyForJob };
+const getAppliedJob = () => {
+    
+}
+
+module.exports = { applyForJob, getAppliedJob };
