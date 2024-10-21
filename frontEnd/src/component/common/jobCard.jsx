@@ -10,6 +10,8 @@ const JobCard = ({ job }) => {
 
     const handleApply = (jobId) => { 
         dispatch(applyForJob(jobId)).then((data)=>{
+
+        console.log(data, "applied Job Data");
         
             if(data?.payload?.success){
                 toast.success(data?.payload?.message, {

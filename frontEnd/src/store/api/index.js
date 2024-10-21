@@ -39,8 +39,9 @@ export const fetchAllJobs = createAsyncThunk(
 export const applyForJob = createAsyncThunk(
   "jobs/applyForJob",
   async (jobId) => {
-    const result = await axios.get(
+    const result = await axios.post(
       `${backEndURL}/api/apply/${jobId}`,
+      {},
       {
         headers: {
           "Content-Type": "application/json",

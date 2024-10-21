@@ -4,8 +4,7 @@ const { applyForJob } = require('../controller/applyJob-controller');
 
 const router = express.Router();
 
-router.get('/:jobId', (req, res,next)=>{
-    
+router.post('/:jobId', (req, res,next)=>{
         const token = req.cookies.token; 
         const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
         req.createdBy = decodedToken;
